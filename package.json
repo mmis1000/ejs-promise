@@ -1,24 +1,26 @@
 {
-  "name": "ejs",
-  "description": "Embedded JavaScript templates",
+  "name": "ejs-stream",
+  "description": "Embedded JavaScript templates with streaming render support",
   "keywords": [
     "template",
     "engine",
-    "ejs"
+    "ejs",
+    "stream"
   ],
-  "version": "2.4.2",
+  "version": "0.0.1",
   "author": "Matthew Eernisse <mde@fleegix.org> (http://fleegix.org)",
   "contributors": [
-    "Timothy Gu <timothygu99@gmail.com> (https://timothygu.github.io)"
+    "Timothy Gu <timothygu99@gmail.com> (https://timothygu.github.io)",
+    "Mmis1000 <mmis1000@yahoo.com.tw> (https://mmis1000.io)"
   ],
   "license": "Apache-2.0",
   "main": "./lib/ejs.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mde/ejs.git"
+    "url": "git@github.com:mmis1000/ejs.git"
   },
-  "bugs": "https://github.com/mde/ejs/issues",
-  "homepage": "https://github.com/mde/ejs",
+  "bugs": "https://github.com/mmis1000/ejs/issues",
+  "homepage": "https://github.com/mmis1000/ejs",
   "dependencies": {},
   "devDependencies": {
     "browserify": "^8.0.3",
