@@ -8,7 +8,7 @@
     <%= "<dangerous>" %>
     <%- "<dangerous>" %>
     <%= wait(1000) %>
-    <%_ include ./test_include %>
-    <%- include("./test_include_dynamic") %>
-    <%= include("./test_include_dynamic") %>
+    <%_ include ./includes/test_include %>
+<%- include("./includes/test_include_dynamic") %>
+<%= include("./includes/test_include_dynamic") %>
 </div>
