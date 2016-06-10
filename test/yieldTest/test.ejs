@@ -1,0 +1,14 @@
+<div>
+    <%= Date.now() %>
+    <%= wait(1000) %>
+    <%= Date.now() %>
+    <%= wait(1000) %>
+    <%= Date.now() %>
+    <%= wait(1000) %>
+    <%= "<dangerous>" %>
+    <%- "<dangerous>" %>
+    <%= wait(1000) %>
+    <%_ include ./test_include %>
+    <%- include("./test_include_dynamic") %>
+    <%= include("./test_include_dynamic") %>
+</div>
