@@ -1,4 +1,4 @@
-# EJS Stream
+# EJS Promise
 
 Embedded JavaScript templates with Generator Support.
 
@@ -7,6 +7,17 @@ Embedded JavaScript templates with Generator Support.
 ```bash
 $ npm install ejs-promise
 ```
+
+## Defferent with `mde` and `tj` 's implement of [ejs](https://www.npmjs.com/package/ejs)
+
+The compiled render function no longer return the rendered result directly.
+It instead return a `Promise` object.
+Which has a property `outputStream` on it.
+The promise object got resolved after all rendering is done, 
+or it got rejected if there is some error during run the templete.
+Beside this, the outputStream on it is a `ReadableStream`, 
+which will output the rendered result immediatly without wait for the render
+done.
 
 ## Features
   * Use `Generator` and `Promise` In the template.
@@ -277,6 +288,7 @@ Most of EJS will work as expected; however, there are a few things to note:
 
 There are a number of implementations of EJS:
 
+ * MDE's implementation, the v1 of this library: https://github.com/mde/ejs
  * TJ's implementation, the v1 of this library: https://github.com/tj/ejs
  * Jupiter Consulting's EJS: http://www.embeddedjs.com/
  * EJS Embedded JavaScript Framework on Google Code: https://code.google.com/p/embeddedjavascript/
