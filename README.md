@@ -1,18 +1,16 @@
 # EJS
 
-Embedded JavaScript templates
-
-[![Build Status](https://img.shields.io/travis/mde/ejs/master.svg?style=flat)](https://travis-ci.org/mde/ejs)
-[![Developing Dependencies](https://img.shields.io/david/dev/mde/ejs.svg?style=flat)](https://david-dm.org/mde/ejs#info=devDependencies)
+Embedded JavaScript templates with Generator Support.
 
 ## Installation
 
 ```bash
-$ npm install ejs
+$ npm install ejs-stream
 ```
 
 ## Features
-
+  * Use `Generator` and `Promise` In the template.
+  * Streamed render without wait until a whole templete is rendered
   * Control flow with `<% %>`
   * Escaped output with `<%= %>` (escape function configurable)
   * Unescaped raw output with `<%- %>`
@@ -40,11 +38,16 @@ var template = ejs.compile(str, options);
 template(data);
 // => Rendered HTML string
 
-ejs.render(str, data, options);
-// => Rendered HTML string
+ejs.render(str, data, options)
+.then(function (result) {
+  // => Rendered HTML string
+});
 
-ejs.renderFile(filename, data, options, function(err, str){
-    // str => Rendered HTML string
+ejs.renderFile(filename, data, options, function(err, resultPromise){
+  resultPromise
+  .then(function (result) {
+    // => Rendered HTML string
+  });
 });
 ```
 
@@ -134,13 +137,17 @@ var ejs = require('ejs'),
     users = ['geddy', 'neil', 'alex'];
 
 // Just one template
-ejs.render('<?= users.join(" | "); ?>', {users: users}, {delimiter: '?'});
-// => 'geddy | neil | alex'
+ejs.render('<?= users.join(" | "); ?>', {users: users}, {delimiter: '?'})
+.then(function (result) {
+  // => 'geddy | neil | alex'
+});
 
 // Or globally
 ejs.delimiter = '$';
-ejs.render('<$= users.join(" | "); $>', {users: users});
+ejs.render('<$= users.join(" | "); $>', {users: users})
+.then(function (result) {
 // => 'geddy | neil | alex'
+});
 ```
 
 ## Caching
@@ -175,6 +182,32 @@ including headers and footers, like so:
 </p>
 <%- include('footer') -%>
 ```
+
+## Promise
+
+You could use promise in templete for async control or other purpose
+
+```
+var ejs = require('ejs'),
+    users = ['geddy', 'neil', 'alex'];
+
+// Just one template
+ejs.render('<?= wait() ?>', 
+    {
+        wait: function (x) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    resolve('wait a second!');
+                }, 1000)
+            })
+        }
+    }, {delimiter: '?'})
+.then(function (result) {
+  // => 'wait a second!'
+});
+
+
+# NOT_YET_FINISHED
 
 ## Client-side support
 
