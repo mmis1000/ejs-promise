@@ -5,7 +5,7 @@ Embedded JavaScript templates with Generator Support.
 ## Installation
 
 ```bash
-$ npm install ejs-stream
+$ npm install ejs-promise
 ```
 
 ## Features
@@ -189,9 +189,8 @@ including headers and footers, like so:
 
 You could use promise in templete for async control or other purpose
 
-```
-var ejs = require('ejs'),
-    users = ['geddy', 'neil', 'alex'];
+```javascript
+var ejs = require('ejs');
 
 // Just one template
 ejs.render('<?= wait() ?>', 
@@ -207,7 +206,28 @@ ejs.render('<?= wait() ?>',
 .then(function (result) {
   // => 'wait a second!'
 });
+```
 
+## Stream
+
+You could stream output immediatly without wait fir render to be finished.
+
+```javascript
+var ejs = require('ejs');
+
+// Just one template
+ejs.render('first\n<?= wait() ?>\nsecond', 
+    {
+        wait: function (x) {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    resolve('wait a second!');
+                }, 1000)
+            })
+        }
+    }, {delimiter: '?'})
+.outputStream.pipe(process.stdout);
+```
 
 # NOT_YET_FINISHED
 
