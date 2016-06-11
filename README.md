@@ -1,4 +1,4 @@
-# EJS
+# EJS Stream
 
 Embedded JavaScript templates with Generator Support.
 
@@ -35,8 +35,10 @@ $ npm install ejs-stream
 
 ```javascript
 var template = ejs.compile(str, options);
-template(data);
-// => Rendered HTML string
+template(data)
+.then(function (result) {
+  // => Rendered HTML string
+});
 
 ejs.render(str, data, options)
 .then(function (result) {
@@ -270,4 +272,7 @@ Licensed under the Apache License, Version 2.0
 EJS Embedded JavaScript templates copyright 2112
 mde@fleegix.org.
 
-
+- - -
+Modofied by
+EJS Embedded JavaScript templates with stream copyright 2016
+mmmis1000@yahoo.com.tw
