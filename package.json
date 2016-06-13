@@ -24,6 +24,7 @@
   "dependencies": {},
   "devDependencies": {
     "browserify": "^8.0.3",
+    "co-mocha": "^1.1.2",
     "istanbul": "~0.3.5",
     "jake": "^8.0.0",
     "jsdoc": "^3.3.0-beta1",

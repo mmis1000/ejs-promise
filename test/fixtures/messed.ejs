@@ -1,1 +1,1 @@
-<ul><%users.forEach(function(user){%><li><%=user.name%></li><%})%></ul>
+<ul><%for(var i = 0; i < users.length; i++) { var user = users[i];%><li><%=user.name%></li><%}%></ul>

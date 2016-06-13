@@ -1,5 +1,5 @@
 <ul>
-	 <%_ users.forEach(function(user){ _%>	 
+	 <%_ for (var i = 0; i < users.length; i++) { var user = users[i]; _%>	 
     <li><%= user.name %></li>
- 	<%_ }) _%> 	
+ 	<%_ } _%> 	
 </ul>

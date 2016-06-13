@@ -1,8 +1,8 @@
 <% if (names.length) { %>
   <ul>
-    <% names.forEach(function (name) { %>
+    <% for (var i; i < names.length; i++) { name = names[i]; %>
       <%# Notice how the single quotation mark is escaped in the output HTML %>
       <li foo='<%= name + "'" %>'><%= name %></li>
-    <% }) %>
+    <% } %>
   </ul>
 <% } %>
