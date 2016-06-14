@@ -127,9 +127,9 @@ double-escaping the HTML output.
 
 ```html
 <ul>
-  <% users.forEach(function(user){ %>
+  <% for (var i = 0; i < users.length; i++) { var user = users[i]; %>
     <%- include('user/show', {user: user}) %>
-  <% }); %>
+  <% } %>
 </ul>
 ```
 
@@ -240,16 +240,16 @@ ejs.render('first\n<?= wait() ?>\nsecond',
 .outputStream.pipe(process.stdout);
 ```
 
-# NOT_YET_FINISHED
-
 ## Client-side support
 
-Go to the [Latest Release](https://github.com/mde/ejs/releases/latest), download
+Go to the [Latest Release](https://github.com/mmis1000/ejs-promise/releases/latest), download
 `./ejs.js` or `./ejs.min.js`. Alternately, you can compile it yourself by cloning 
 the repository and running `jake build` (or `$(npm bin)/jake build` if jake is 
 not installed globally).
 
 Include one of these files on your page, and `ejs` should be available globally.
+
+or you cou
 
 ### Example
 
@@ -258,11 +258,13 @@ Include one of these files on your page, and `ejs` should be available globally.
 <script src="ejs.min.js"></script>
 <script>
   var people = ['geddy', 'neil', 'alex'],
-      html = ejs.render('<%= people.join(", "); %>', {people: people});
-  // With jQuery:
-  $('#output').html(html);
-  // Vanilla JS:
-  document.getElementById('output').innerHTML = html;
+      promise = ejs.render('<%= people.join(", "); %>', {people: people});
+  promise.then(function (html) {
+    // With jQuery:
+    $('#output').html(html);
+    // Vanilla JS:
+    document.getElementById('output').innerHTML = html;
+  })
 </script>
 ```
 
@@ -281,15 +283,39 @@ Most of EJS will work as expected; however, there are a few things to note:
     // d -> {person: 'John'}
     // Put your code here 
     // Return the contents of file as a string
-  }); // returns rendered string
+  }); // returns rendering promise
+  ```
+3. becuase browser won't has `Stream` (old browser may also lack of `Promise`), the `{client: true}` won't work unless `Stream` and `Promise` are exists
+  ```html
+    <!-- 
+      1. you need a Stream implement to make {client: true} work 
+         ex:
+         https://github.com/substack/stream-browserify
+      
+      2. you need a Promise implement to make {client: true} work
+         newer borwser may already has it, but old won't
+         ex:
+         https://github.com/taylorhakes/promise-polyfill
+    -->
+    <script src="stream.min.js"></script>
+    <script src="promise.min.js"></script>
+    
+    <script>
+      var str = "Hello",
+          fn = ejs.compile(str, {client: true});
+      
+      fn(data).then(function (html) {
+        // "Hello"
+      })
+    </script>
   ```
 
 ## Related projects
 
 There are a number of implementations of EJS:
 
- * MDE's implementation, the v1 of this library: https://github.com/mde/ejs
- * TJ's implementation, the v1 of this library: https://github.com/tj/ejs
+ * MDE's implementation: https://github.com/mde/ejs
+ * TJ's implementation: https://github.com/tj/ejs
  * Jupiter Consulting's EJS: http://www.embeddedjs.com/
  * EJS Embedded JavaScript Framework on Google Code: https://code.google.com/p/embeddedjavascript/
  * Sam Stephenson's Ruby implementation: https://rubygems.org/gems/ejs
@@ -307,4 +333,4 @@ mde@fleegix.org.
 - - -
 Modofied by
 EJS Embedded JavaScript templates with stream copyright 2016
-mmmis1000@yahoo.com.tw
+mmis1000@yahoo.com.tw
