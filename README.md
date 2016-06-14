@@ -293,12 +293,14 @@ Most of EJS will work as expected; however, there are a few things to note:
          https://github.com/substack/stream-browserify
       
       2. you need a Promise implement to make {client: true} work
-         newer borwser may already has it, but old won't
+         newer borwser may already has it, but the old won't
          ex:
          https://github.com/taylorhakes/promise-polyfill
     -->
     <script src="stream.min.js"></script>
     <script src="promise.min.js"></script>
+    
+    <script src="ejs.min.js"></script>
     
     <script>
       var str = "Hello",
