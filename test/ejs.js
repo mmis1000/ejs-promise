@@ -985,5 +985,53 @@ suite('examples', function () {
     });
   });
 });
-/*
-});*/
+
+suite('__express wrap', function () {
+  test('the __express method is wrapped to be compatible with express', function (done) {
+    ejs.__express('test/fixtures/para.ejs', function(err, html) {
+      if (err) {
+        return done(err);
+      }
+      assert.equal(html, '<p>hey</p>\n');
+      done();
+    });
+  });
+  test('it throws if there are syntax errors', function (done) {
+    ejs.__express('test/fixtures/fail.ejs', function(err, html) {
+      if (err) {
+        assert.ok(err.message.indexOf('fail.ejs') > -1);
+        return done();
+      }
+      done('Error not thrown!');
+    });
+  });
+  test('it throws if there are runtime errors', function (done) {
+    ejs.__express('test/fixtures/user.ejs', {}, {delimiter: '$'}, function(err, html) {
+      if (err) {
+        assert.ok(err.message.indexOf('name is not defined') > -1);
+        return done();
+      }
+      done('Error not thrown!');
+    });
+  });
+});
+
+suite('promise', function () {
+  test('it wrap promise to throw if it was rejected', function* () {
+    try {
+      yield ejs.render('<%- boom() %>', {
+        boom: function () {
+          return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+              reject(new Error('boom'))
+            })
+          })
+        }
+      })
+    } catch (err) {
+      assert.ok(err.message.indexOf('boom') > -1);
+      return;
+    }
+    assert.ok(false, 'error not thrown')
+  })
+})
