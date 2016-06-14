@@ -114,12 +114,11 @@ suite('ejs.compile(str, options)', function () {
     fn = ejs.compile('<p><%= foo %></p>', {client: true});
     str = fn.toString();
     
-    global.Stream = require("stream");
+    var Stream = require("stream");
     if (!process.env.running_under_istanbul) {
       eval('var preFn = ' + str);
       assert.equal(yield preFn({foo: 'bar'}), '<p>bar</p>');
     }
-    delete global.Stream;
   });
 
   test('support client mode without locals', function* () {
@@ -128,6 +127,8 @@ suite('ejs.compile(str, options)', function () {
       , preFn;
     fn = ejs.compile('<p><%= "foo" %></p>', {client: true});
     str = fn.toString();
+    
+    var Stream = require("stream");
     if (!process.env.running_under_istanbul) {
       eval('var preFn = ' + str);
       assert.equal(yield preFn(), '<p>foo</p>');
@@ -157,7 +158,7 @@ suite('ejs.compile(str, options)', function () {
     var customEscape
       , fn
       , str;
-    global.Stream = require("stream");
+    var Stream = require("stream");
     customEscape = function customEscape(str) {
       return !str ? '' : str.toUpperCase();
     };
@@ -167,7 +168,6 @@ suite('ejs.compile(str, options)', function () {
       eval('var preFn = ' + str);
       assert.equal(yield preFn({name: 'world'}), 'HELLO WORLD');
     }
-    delete global.Stream;
   });
 });
 
