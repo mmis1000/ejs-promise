@@ -1034,4 +1034,63 @@ suite('promise', function () {
     }
     assert.ok(false, 'error not thrown')
   })
+  test('it should reject the promise before stream got end', function (done) {
+    var p = ejs.render('<%- boom() %>', {
+      boom: function () {
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            reject(new Error('boom'))
+          })
+        })
+      }
+    })
+    var rejected = false;
+    p.then(function () {
+      done('it should be a error here!')
+    }, function () {
+      rejected = true;
+    })
+    p.outputStream.on('data', function () {});
+    p.outputStream.on('end', function () {
+      if (!rejected) {
+        return done('it got end before reject')
+      }
+      done()
+    })
+  })
+  test('it should forward error out from dynamic included templete', function* () {
+    try {
+      var result = yield ejs.render('test<@- include("pet") @>123', {
+        filename: 'test/fixtures/unexisted.ejs',
+        delimiter: '@'
+      })
+    } catch (err) {
+      assert.ok(err.message.indexOf('pet is not defined') >= 0, 'no expexted error found')
+      return
+    }
+    assert.ok(false, 'error not thrown');
+  });
+})
+
+suite('outputStream', function () {
+  test('it should emit error instead of end if there is a handler', function (done) {
+    var p = ejs.render('<%- boom() %>', {
+      boom: function () {
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            reject(new Error('boom'))
+          })
+        })
+      }
+    })
+    var errorFired = false;
+    p.outputStream.on('data', function () {});
+    p.outputStream.on('error', function (err) {
+      assert.ok(err.message.match(/boom/));
+      return done()
+    });
+    p.outputStream.on('end', function () {
+      return done('the error didn\'t fired')
+    })
+  })
 })
