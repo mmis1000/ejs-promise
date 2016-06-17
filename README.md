@@ -221,7 +221,7 @@ ejs.render('<?= wait() ?>',
 
 ## Stream
 
-You could stream output immediatly without wait fir render to be finished.
+You could stream output immediatly without wait for render to be finished.
 
 ```javascript
 var ejs = require('ejs');
@@ -238,6 +238,7 @@ ejs.render('first\n<?= wait() ?>\nsecond',
         }
     }, {delimiter: '?'})
 .outputStream.pipe(process.stdout);
+// output 'first' then delay a second and output 'wait a second!', 'second'
 ```
 
 ## Client-side support
