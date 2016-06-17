@@ -223,6 +223,8 @@ ejs.render('<?= wait() ?>',
 
 You could stream output immediatly without wait for render to be finished.
 
+Note: the `end` event will not be fired if there is a error and `error` handler for stream existed.
+
 ```javascript
 var ejs = require('ejs');
 
