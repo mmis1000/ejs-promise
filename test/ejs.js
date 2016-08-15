@@ -1094,3 +1094,23 @@ suite('outputStream', function () {
     })
   })
 })
+
+
+suite('interrupt', function () {
+  test('was able to interrupt the render', function* () {
+    var p = ejs.render('<%= stuck() %>', {
+      stuck: function () {
+        return new Promise(function (success, failed) {})
+      }
+    })
+    setTimeout(function () {
+      p.defered.interrupt();
+    }, 50)
+    try {
+      yield p
+    } catch (e) {
+      console.log(e.message)
+      assert.ok(e.message.match(/interrupt/, 'not interrupted'))
+    }
+  });
+})
