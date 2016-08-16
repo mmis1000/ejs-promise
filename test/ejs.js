@@ -939,12 +939,12 @@ suite('preprocessor include', function () {
     assert.equal(out, expected);
   });
   
-  test('whitespace slurp and rmWhitespace work', function() {
+  test('whitespace slurp and rmWhitespace work', function*() {
     var file = 'test/fixtures/include_preprocessor_line_slurp.ejs'
       , template = fixture('include_preprocessor_line_slurp.ejs')
       , expected = fixture('include_preprocessor_line_slurp.html')
       , options = {rmWhitespace: true, filename: file};
-    assert.equal(ejs.render(template, options),
+    assert.equal(yield ejs.render(template, options),
         expected);
   })
   
