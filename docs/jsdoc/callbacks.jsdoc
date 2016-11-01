@@ -2,8 +2,12 @@
  * Callback for receiving data from {@link module:ejs.renderFile}.
  *
  * @callback RenderFileCallback
- * @param {?Error}  err error, if any resulted from the rendering process
- * @param {?Promise} promise that will resolve after render was done
+ * @param {?Error}  err 
+ * error, if any resulted from the rendering process
+ *
+ * @param {?EjsPromise} promise 
+ * promise hat will resolve after render was done
+ *
  * @static
  * @global
  */

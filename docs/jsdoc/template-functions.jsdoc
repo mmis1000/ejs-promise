@@ -30,6 +30,12 @@
  * @param {RethrowCallback} [rethrow={@link module:ejs-internal.rethrow}]
  * callback used to handle and rethrow errors
  *
+ * @param {Promise} [__Promise=window.Promise]
+ * promise implement that nedded for this function to walk
+ *
+ * @param {Stream} [__Stream=window.Stream]
+ * Stream implement that nedded for this function to walk
+ *
  * @static
  * @global
  */
