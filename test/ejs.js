@@ -530,6 +530,11 @@ suite('<%=', function () {
       'THE JONES\'S'
     );
   });
+  test('escape sub templete', function* () {
+    var file = 'test/fixtures/escape.ejs';
+    assert.equal(yield ejs.render(fixture('escape.ejs'), {}, {filename: file}),
+        fixture('escape.html'));
+  });
 });
 
 suite('<%-', function () {
