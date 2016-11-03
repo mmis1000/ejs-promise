@@ -1109,7 +1109,6 @@ suite('outputStream', function () {
   })
 })
 
-
 suite('interrupt', function () {
   test('was able to interrupt the render', function* () {
     var p = ejs.render('<%= stuck() %>', {
@@ -1126,5 +1125,65 @@ suite('interrupt', function () {
       console.log(e.message)
       assert.ok(e.message.match(/interrupt/, 'not interrupted'))
     }
+  });
+})
+
+suite('buffer', function () {
+  test('was able to cancel render buffer', function* () {
+    var p = ejs.render('<p>yay</p>');
+    p.noBuffer()
+    assert.equal(yield p, '');
+  });
+  test('was able to cancel render buffer when delayed', function* () {
+    var p = ejs.render('<%= wait() %><p>yay</p>', {
+      wait: function () {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function () {
+            resolve('')
+          }, 0);
+        })
+      }
+    });
+    p.noBuffer()
+    assert.equal(yield p, '');
+  });
+  test('was able to re enable render buffer', function* () {
+    var p = ejs.render('<%= wait() %><p>yay</p>', {
+      wait: function () {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function () {
+            resolve('')
+          }, 0);
+        })
+      }
+    });
+    p.noBuffer();
+    p.useBuffer();
+    assert.equal(yield p, '<p>yay</p>');
+  });
+})
+
+suite('wait flush', function() {
+  var PassThrough = require("stream").PassThrough;
+  test('was able to prevent write when detination fulled', function (done) {
+    var target = new PassThrough({
+      highWaterMark : 2
+    })
+    var p = ejs.render(`<%
+        while (true) { 
+          %>0<% 
+        } 
+      %>`
+    );
+    p.waitFlush();
+    p.outputStream.pipe(target)
+    setTimeout(function () {
+      try {
+        assert.equal(target._writableState.getBuffer().length <= 2, true, 'too much data');
+      } catch (err) {
+        return done(err);
+      }
+      done();
+    }, 10)
   });
 })
