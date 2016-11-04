@@ -16,4 +16,6 @@ var ejs = require('../')
 
 var ret = ejs.compile(read(path, 'utf8'), {filename: path})(data);
 
-console.log(ret);
+ret
+  .then(console.log.bind(console))
+  .catch(console.error.bind(console))

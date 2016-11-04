@@ -12,4 +12,6 @@ var ret = ejs.compile(str)({
   names: ['foo', 'bar', 'baz']
 });
 
-console.log(ret);
+ret
+  .then(console.log.bind(console))
+  .catch(console.error.bind(console))

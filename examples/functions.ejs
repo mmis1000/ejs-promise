@@ -5,5 +5,5 @@
 <% } %>
 
 <ul>
-  <% for (var i; i < users.length; i++) yield* user(users[i]); %>
+  <% for (var i=0; i < users.length; i++) yield* user(users[i]); %>
 </ul>
