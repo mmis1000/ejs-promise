@@ -1166,24 +1166,28 @@ suite('buffer', function () {
 suite('wait flush', function() {
   var PassThrough = require("stream").PassThrough;
   test('was able to prevent write when detination fulled', function (done) {
-    var target = new PassThrough({
-      highWaterMark : 2
-    })
     var p = ejs.render(`<%
         while (true) { 
           %>0<% 
         } 
-      %>`
+        %>`, {}, {
+        streamOptions: {
+          highWaterMark: 128
+        }
+      }
     );
     p.waitFlush();
-    p.outputStream.pipe(target)
+    
     setTimeout(function () {
       try {
-        assert.equal(target._writableState.getBuffer().length <= 2, true, 'too much data');
+        // check it only generate 'enough' data
+        console.log(p._outputStream._writableState.getBuffer().length)
+        assert.equal(p._outputStream._writableState.getBuffer().length <= 128, true, 'too much data');
       } catch (err) {
         return done(err);
       }
       done();
     }, 10)
+    
   });
 })
