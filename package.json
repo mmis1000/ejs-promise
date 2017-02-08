@@ -17,10 +17,10 @@
   "main": "./lib/ejs.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mmis1000/ejs.git"
+    "url": "git@github.com:mmis1000/ejs-promise.git"
   },
-  "bugs": "https://github.com/mmis1000/ejs/issues",
-  "homepage": "https://github.com/mmis1000/ejs",
+  "bugs": "https://github.com/mmis1000/ejs-promise/issues",
+  "homepage": "https://github.com/mmis1000/ejs-promise",
   "dependencies": {},
   "devDependencies": {
     "browserify": "^8.0.3",
