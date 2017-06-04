@@ -91,6 +91,16 @@ Therefore, we do not recommend using this shortcut.
     the middle of a line).
   - `escape`          The escaping function used with `<%=` construct. It is
     used in rendering and is `.toString()`ed in the generation of client functions. (By default escapes XML).
+  - `streamOptions`   Options that will be passed to underlining PassThrough stream.
+
+## Returned promise properties (extend normal promise)
+  
+  - `outputStream`      (stream.passThrough) stream that will pipe result out withoud render finished
+  - `noBuffer`          (method) stop buffering data, make this promise resolve empty buffer.
+  - `useBuffer`         (method) renable buffer.
+  - `waitFlush`         (method) prevent this promise from rendering more data than the stream pipe target required.
+  - `defered.interrupt` (method) method interupt the rendering process
+
 
 This project uses [JSDoc](http://usejsdoc.org/). For the full public API 
 documentation, clone the repository and run `npm run doc`. This will run JSDoc 

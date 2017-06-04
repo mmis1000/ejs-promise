@@ -9,6 +9,15 @@
  * @property {Defered} defered
  * A object that can control the activity of this promise
  *
+ * @property {function} noBuffer
+ * Stop buffering data, make this promise resolve empty buffer.
+ *
+ * @property {function} useBuffer
+ * Renable buffer.
+ *
+ * @property {function} waitFlush
+ * Prevent this promise from rendering more data than the stream pipe target required.
+ *
  * @static
  * @global
  */

@@ -1123,7 +1123,7 @@ suite('interrupt', function () {
       yield p
     } catch (e) {
       console.log(e.message)
-      assert.ok(e.message.match(/interrupt/, 'not interrupted'))
+      assert.ok(e.message.match(/interrupt/), 'not interrupted')
     }
   });
 })

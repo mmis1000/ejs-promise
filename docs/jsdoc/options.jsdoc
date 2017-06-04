@@ -53,6 +53,9 @@
  * @property {Object}  [scope=this]
  * Alias of `context`. Deprecated.
  *
+ * @property {Object}  [streamOptions={}]
+ * Options of underlining PassThrough stream.
+ *
  * @static
  * @global
  */
