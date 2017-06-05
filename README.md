@@ -19,6 +19,9 @@ Beside this, the outputStream on it is a `ReadableStream`,
 which will output the rendered result immediatly without wait for the render
 done.
 
+In this way, ejs-promise use less time for TTFB(time to first byte) and total response time than original ejs.  
+![image for timeline of response](http://cdn.rawgit.com/mmis1000/ejs-promise/7706080f5086f4635a2766ae9dc9acc151ce4bdd/docs/image/ejs-promise.svg)
+
 ## Features
   * Use `Generator` and `Promise` In the template.
   * Streamed render without wait until a whole templete is rendered
