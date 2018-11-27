@@ -1,5 +1,7 @@
 # EJS Promise
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mmis1000/ejs-promise.svg)](https://greenkeeper.io/)
+
 Embedded JavaScript templates with Generator Support.
 
 ## Installation
